@@ -24,6 +24,7 @@ Additional information will soon follow.
 Contact: tin (at) lbl.gov
 
 Application accessible at:
-  * https://smelly.lbl.gov  [ new url ]
+  * https://lbnl-scienceit.github.io/smelly/index.html [ staging ]
+  * https://smelly.lbl.gov  [ tba ]
   * https://tin6150.github.io/smelly/smelly.html [ old url ]
 
