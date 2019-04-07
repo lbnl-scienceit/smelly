@@ -1,0 +1,27 @@
+dirID,file_name,site_name,a,b,R2,season,hour,plant.scale,top
+1,Arcata,Arcata_WWTF,0.53596043,0.341263213,0.976225497,All,All Hours,scale_1x,Top 2%
+2,Atwater,Atwater_WWTF,0.536017451,0.339092809,0.980400732,All,All Hours,scale_1x,Top 2%
+3,Bakersfield,BakersfieldWWTP2,0.479376116,0.673750877,0.978816593,All,All Hours,scale_1x,Top 2%
+4,Calexico,Calexico_WPCP,0.592465531,-0.006489793,0.988205301,All,All Hours,scale_1x,Top 2%
+5,Corona,Corona_WWTP1,0.635018972,0.253917585,0.976545537,All,All Hours,scale_1x,Top 2%
+6,Dublin,Dublin_WWTP,0.393672494,0.906986371,0.958247988,All,All Hours,scale_1x,Top 2%
+7,Eldorado,El_Dorado_WPP,0.620800211,-0.410330077,0.961794158,All,All Hours,scale_1x,Top 2%
+8,Fairfield,Fairfield_Suisan,0.599387188,-0.289703645,0.977049819,All,All Hours,scale_1x,Top 2%
+9,Fresno,Fresno-Clovis,0.515019311,0.494289004,0.983041861,All,All Hours,scale_1x,Top 2%
+10,Healdsburg,Healdsburg_WRF,0.550800203,0.338566726,0.94974232,All,All Hours,scale_1x,Top 2%
+11,Ieua,IEUA_Plant,0.616318773,0.341113831,0.98021814,All,All Hours,scale_1x,Top 2%
+12,Joint,Joint_WPCA,0.68192819,0.031866302,0.982522896,All,All Hours,scale_1x,Top 2%
+13,Lancaster,Lancaster_WPP,0.552338543,0.012403766,0.980074715,All,All Hours,scale_1x,Top 2%
+14,Monterey,MONTEREY_WPCA,0.528392664,0.435026406,0.973706717,All,All Hours,scale_1x,Top 2%
+15,Palm,Palm_WPCP,0.543606516,0.563546716,0.975759371,All,All Hours,scale_1x,Top 2%
+16,Porterville,Porterville_WWTF,0.512584536,0.528524663,0.963317033,All,All Hours,scale_1x,Top 2%
+17,Redding,Redding_WWTP,0.499265352,0.577285837,0.980766242,All,All Hours,scale_1x,Top 2%
+18,Sacramento,Sacramento,0.629208312,-0.434987198,0.975781042,All,All Hours,scale_1x,Top 2%
+19,Sandiego,SanDiego_Metro,0.53833562,0.107263281,0.962648698,All,All Hours,scale_1x,Top 2%
+20,Sanjose,SanJose_WPCP,0.554140261,0.211941873,0.982696123,All,All Hours,scale_1x,Top 2%
+21,Socwa,SOCWA_TP,0.520287519,0.319883241,0.98700099,All,All Hours,scale_1x,Top 2%
+22,Southeast,Southeast_WPCP,0.516943689,-0.025229713,0.964288543,All,All Hours,scale_1x,Top 2%
+23,Ukiah,Ukiah_WWTP,0.530717452,0.277869425,0.985944189,All,All Hours,scale_1x,Top 2%
+24,Vacaville,Vacaville_WWTP,0.586784052,0.239459843,0.98577944,All,All Hours,scale_1x,Top 2%
+25,Zbest,Z-Best_Facility,0.607068667,-0.19891831,0.988537021,All,All Hours,scale_1x,Top 2%
+26,Zwedc,ZWEDC,0.552349076,0.327879618,0.988695302,All,All Hours,scale_1x,Top 2%
