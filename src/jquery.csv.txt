@@ -1,0 +1,10 @@
+
+hoping to use csv parser with jQuery style
+(attempt to use D3js was a snafu)
+
+
+source: https://github.com/evanplaice/jquery-csv
+manually copied to here, on 2019.0407.
+at a083c2575c8a68f8e5f716ebf309adaeacf6b079
+Date:   Mon Mar 4 14:45:56 2019 -0700
+
