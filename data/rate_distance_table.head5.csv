@@ -1,0 +1,5 @@
+"","season","hour","plant.scale","top","a","b","R2","site_name"
+"1","Spring (MAM)","All Hours","scale_1x","Top 2%",0.572781584311465,-0.11966523965903,0.967234007216081,"Arcata_WWTF"
+"2","Spring (MAM)","High Mixing Hours","scale_1x","Top 2%",0.453561594602808,0.327341954139423,0.943265341142336,"Arcata_WWTF"
+"3","Spring (MAM)","Low Mixing Hours","scale_1x","Top 2%",0.570259584830293,0.161298604850135,0.968341455614918,"Arcata_WWTF"
+"4","Summer (JJA)","All Hours","scale_1x","Top 2%",0.533338170108181,0.0332226978136757,0.966856904488988,"Arcata_WWTF"
