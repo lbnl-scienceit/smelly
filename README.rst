@@ -21,15 +21,19 @@ FAQ
 * Odor is very subjective.  This app tries to reports on chemical species that most people find unpleasant.  Concentration of 5.0 ou/m^3 is usually the threashold of human detection.
 * Map represent "Top 2%" emission.  This is the emission rate at the highest concentration for 2% of the time.  eg, For a 24 hours period, about 1/2 hour will have odorous chemical at the modeled level.
 * Model assume a plant capacity of 90,000 ton/year for organic waste.
-* Compost is the largest contributor of offensive odor.  Different composting mechanism are employed.  This model assume plant uses `windrow compost`.
+* Compost is the largest contributor of offensive odor.  Different composting mechanism are employed.  This model assume plant uses *windrow compost*.
 * For further details, please see our paper published at [TBA].
 
-Credit
-======
+About
+=====
 
 This web-based application is a 
-collaboration of Energy Technology Area and Scientific Computing at 
-_Lawrence Berkeley National Lab: http://www.lbl.gov
+collaboration of 
+`Energy Technology Area <http://eta.lbl.gov>`_ 
+and 
+`Scientific Computing <http://lrc.lbl.gov>`_
+at 
+`Lawrence Berkeley National Lab <http://www.lbl.gov>`_.
 
 © 2019 Tin Ho, Wei Zhou, Ling Jin, Tyler Huntington, Corinne Scown.
 
