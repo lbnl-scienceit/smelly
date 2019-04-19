@@ -12,10 +12,14 @@ it now works for ~25 sites.
 But only ZWEDC has all mixing hours and plant capacity (scale) modeled.
 other sites has more limited simulation data.
 flyTo() works.
+
+
+check out vscode from github, works for linux
+async() will do the smart thing and generate return as promise when needed
 -->
 <head>
     <meta charset='utf-8' />
-    <title>Smelly - ETA + Science IT Collaboration (lbnl0404)</title>
+    <title>Smelly - ETA + Science IT Collaboration (0418)</title>
     <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.52.0/mapbox-gl.js'></script>
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.52.0/mapbox-gl.css' rel='stylesheet' />
@@ -45,7 +49,14 @@ flyTo() works.
     <script src="https:// x code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     --> 
 	<!-- see jQuery versions at https://code.jquery.com/jquery/ -->
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script> -->
+	<script src="http://code.jquery.com/jquery-3.3.1.slim.js" integrity="sha256-fNXJFIlca05BIO2Y5zh1xrShK3ME+/lYZ0j+ChxX2DA=" crossorigin="anonymous"></script>
+
+	<!-- DataTables.net, never used , thus disabling
+	<script src="https://smelly.lbl.gov/src/jquery.csv.js" crossorigin="anonymous"></script>
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+	--> 
 
     <style>
         body { margin:0; padding:0; }   /* map cover whole page, map-containe no special styling, fall under this body style  */
@@ -145,12 +156,11 @@ flyTo() works.
 	  /*overflow: auto;*/
 	  z-index: 5;		/* 1 appear behind copyright link; 5 would cover it. I have another (i) for the link :) */
 	  border-radius: 3px;
-	  /*background: rgba(250, 250, 250, 0.9);  /* 255 255 255 is pure white */
-      /*background-color: rgba(250, 250, 224, 0.6);  /* this is greenish/yellowish */
-      background-color: rgba(30, 250, 30, 0.8);  /* this is lime green */
-      /*background: rgba(250, 250, 224, 0.8);  /* this is greenish/yellowish */
-	  font: 12pt/12pt 'Helvetica Neue', Arial, Helvetica, sans-serif;  /* 12pt here, not px  */
+      background-color: rgb(190, 243, 196);      /* this is dark green */
+	  /*font: 12pt/12pt 'Helveticaw Neue', Arial, Helvetica, sans-serif;  /* 12pt here, not px  */
+	  font: 14pt/14pt 'Arial', Arial, Helvetica, sans-serif;  /* 12pt here, not px  */
 	}
+
 
 
 
@@ -286,9 +296,9 @@ flyTo() works.
 
 
 	<div id="inputbar"><!-- class="inputCss"> -->
-				<!--   disable calculator feature till code is done ## FIXME 
+		<!--   disable calculator feature till code is done ## FIXME   -->
 			<BUTTON id="ShowCalculator">Show Calculator</BUTTON>
-				-->
+				<!-- -->
             <!--html element for drop down picker goes here-->
             <select id="siteSelectorUI"> <!-- site -->  <!--to emulate Tyler <select id="polygon-layer-selector"> -->
                 <option value="NA"         disabled           >Air Basin: Site</option>	       
@@ -345,7 +355,7 @@ flyTo() works.
             </select>
             <select id="sourceSelectorUI">
                 <option value="NA" disabled >Source</option>	       
-                <option value="Co">Compost</option>
+                <option value="Co">Windrow Compost</option>
                 <option value="Nc">No Compost</option>
                 <option value="Bi">Biofilter</option>
                 <option value="Re">Receiving</option>
@@ -378,11 +388,11 @@ flyTo() works.
 		</h3>
 		<BR>
 		<BR>
-		<TABLE>
+		<TABLE cellpadding="1">
 			<TR>
 				<TD>Enter emission rate </TD>
-				<TD><input type="text" name="distanceCalculatorInput" id="distanceCalculatorInput" size="6" value="100"> </TD> <!-- 100 ou/s/m2 -->
-				<TD>ou/s/m2</TD> <!-- square -->
+				<TD><input type="text" name="distanceCalculatorInput" id="distanceCalculatorInput" size="6" value="26000"> </TD> <!-- 100 ou/s -->
+				<TD>ou/s</TD> <!-- just ou/s, not cube or square -->
 			</TR>
 		</TABLE>
 		<TABLE>
@@ -393,47 +403,50 @@ flyTo() works.
 			<TR>
 		</TABLE>
 		<h3>
-			Separation Distance for <EM><DIV ID="siteLocation4distCalc">SiteLocation</DIV></EM>
+            Max Separation Distance (meter)  <EM><DIV ID="siteLocation4distCalc">SiteLocation</DIV></EM><BR>
+			<!-- maye better named as ou2distance calculator -->
 		</h3>
 		<BR>
-		<TABLE border="1">
+		<DIV ID="calcTableResult4distanceDiv">
+		<TABLE border="1" id="calcTableResult4distance" cellpadding="6">
 			<TR>
 				<TD></TD>
 				<TD>Low Mixing <BR> 7-8am; 6-9pm</TD>
 				<TD>High Mixing<BR> 9am-5pm</TD>
-				<TD>Ext Mixing <BR> 7am-9pm</TD>
+				<TD>All Hours<BR> 7am-9pm</TD>
 			</TR>
 			<TR>
 				<TD>Spring</TD>
-				<TD><DIV CLASS="noNewLine" ID="calc_result_lowMixing_spring">Result</DIV> m</TD>
-				<TD><DIV CLASS="noNewLine" ID="calc_result_highMixing_spring">Result</DIV> m</TD>
-				<TD><DIV CLASS="noNewLine" ID="calc_result_extMixing_spring">Result</DIV> m</TD>
+				<TD><DIV CLASS="noNewLine" ID="calc_result_Spr_Lo">Result</DIV></TD>
+				<TD><DIV CLASS="noNewLine" ID="calc_result_Spr_Hi">Result</DIV></TD>
+				<TD><DIV CLASS="noNewLine" ID="calc_result_Spr_Al">Result</DIV></TD>
 			</TR>
 			<TR>
 				<TD>Summer</TD>
-				<TD><DIV CLASS="noNewLine" ID="calc_result_lowMixing_summer">Result</DIV> m</TD>
-				<TD><DIV CLASS="noNewLine" ID="calc_result_highMixing_summer">Result</DIV> m</TD>
-				<TD><DIV CLASS="noNewLine" ID="calc_result_extMixing_summer">Result</DIV> m</TD>
+				<TD><DIV CLASS="noNewLine" ID="calc_result_Sum_Lo">Result</DIV></TD>
+				<TD><DIV CLASS="noNewLine" ID="calc_result_Sum_Hi">Result</DIV></TD>
+				<TD><DIV CLASS="noNewLine" ID="calc_result_Sum_Al">Result</DIV></TD>
 			</TR>
 			<TR>
 				<TD>Autum</TD>
-				<TD><DIV CLASS="noNewLine" ID="calc_result_lowMixing_autum">Result</DIV> m</TD>
-				<TD><DIV CLASS="noNewLine" ID="calc_result_highMixing_autum">Result</DIV> m</TD>
-				<TD><DIV CLASS="noNewLine" ID="calc_result_extMixing_autum">Result</DIV> m</TD>
+				<TD><DIV CLASS="noNewLine" ID="calc_result_Aut_Lo">Result</DIV></TD>
+				<TD><DIV CLASS="noNewLine" ID="calc_result_Aut_Hi">Result</DIV></TD>
+				<TD><DIV CLASS="noNewLine" ID="calc_result_Aut_Al">Result</DIV></TD>
 			</TR>
 			<TR>
 				<TD>Winter</TD>
-				<TD><DIV CLASS="noNewLine" ID="calc_result_lowMixing_winter">Result</DIV> m</TD>
-				<TD><DIV CLASS="noNewLine" ID="calc_result_highMixing_winter">Result</DIV> m</TD>
-				<TD><DIV CLASS="noNewLine" ID="calc_result_extMixing_winter">Result</DIV> m</TD>
+				<TD><DIV CLASS="noNewLine" ID="calc_result_Win_Lo">Result</DIV></TD>
+				<TD><DIV CLASS="noNewLine" ID="calc_result_Win_Hi">Result</DIV></TD>
+				<TD><DIV CLASS="noNewLine" ID="calc_result_Win_Al">Result</DIV></TD>
 			</TR>
 			<TR>
 				<TD>All Seasons</TD>
-				<TD><DIV CLASS="noNewLine" ID="calc_result_lowMixing_allSeasons">Result</DIV> m</TD>
-				<TD><DIV CLASS="noNewLine" ID="calc_result_highMixing_allSeasons">Result</DIV> m</TD>
-				<TD><DIV CLASS="noNewLine" ID="calc_result_extMixing_allSeasons">Result</DIV> m</TD>
+				<TD><DIV CLASS="noNewLine" ID="calc_result_All_Lo">Result</DIV></TD>
+				<TD><DIV CLASS="noNewLine" ID="calc_result_All_Hi">Result</DIV></TD>
+				<TD><DIV CLASS="noNewLine" ID="calc_result_All_Al">Result</DIV></TD>
 			</TR>
 		</TABLE>
+		</DIV>
 		<BR><BR>
 		<TABLE>
 			<TR>
@@ -445,29 +458,16 @@ flyTo() works.
 		</center>
 	</div>   <!-- end div for calculator -->
 
-	<div id="warningBox" class="warningCss">
-		<TABLE>
-			<TR>
-				<TD>
-		Warning: Odor data presented is very preliminary, it is used for demo purpose.  Additional data collection, modeling and research needed to provide more accurate data.
-				</TD>
-				<TD>
-	    			<BUTTON id="DismissWarningButton">Dismiss</BUTTON>
-				</TD>
-			</TR>
-		</TABLE>
-	</div>   <!-- end div for warningbox -->
-
 	<!-- being div for RATE calculator -->
 	<div id="rateCalc" class="calc_Css">   
 		<center>
-		<h3>Allowable Odor Rate for stated distance<BR>
+        <h3>Allowable Odor Emission Rates<BR>
 		</h3>
 		<BR>
 		<BR>
 		<TABLE>
 			<TR>
-				<TD>Enter desired separation distance (500-3000m):</TD>
+				<TD>Enter desired separation distance (meter):</TD>
 				<TD><input type="text" name="rateCalculatorInput" id="rateCalculatorInput" size="6" value="1000"> </TD>
 				<TD> m</TD>
 			</TR>
@@ -480,50 +480,52 @@ flyTo() works.
 			<TR>
 		</TABLE>
 		<h3>
-			Allowed Max Emission Rate for <EM><DIV ID="siteLocation4rateCalc">SiteLocation</DIV></EM>
+			Allowed Max Emission Rate (ou/s) <EM><DIV ID="siteLocation4rateCalc">SiteLocation</DIV></EM>
 		</h3>
 		<BR>
-		<TABLE border="1">
+		<DIV ID="calcTableResult4rateDiv">
+		<TABLE border="1" id="calcTableResult4rate" cellpadding="6">
 			<TR>
 				<TD></TD>
 				<TD>Low Mixing <BR> 7-8am; 6-9pm</TD>
 				<TD>High Mixing<BR> 9am-5pm</TD>
-				<TD>Ext Mixing <BR> 7am-9pm</TD>
+				<TD>All Hours<BR> 7am-9pm</TD>
 			</TR>
 			<TR>
 				<TD>Spring</TD>
-				<TD><DIV CLASS="noNewLine" ID="calc_result_distance2rate_lowMixing_spring">Result</DIV> ou/s</TD>
-				<TD><DIV CLASS="noNewLine" ID="calc_result_distance2rate_highMixing_spring">Result</DIV> ou/s</TD>
-				<TD><DIV CLASS="noNewLine" ID="calc_result_distance2rate_extMixing_spring">Result</DIV> ou/s</TD>
+				<TD><DIV CLASS="noNewLine" ID="calc_result_distance2rate_Spr_Lo">Result</DIV></TD>
+				<TD><DIV CLASS="noNewLine" ID="calc_result_distance2rate_Spr_Hi">Result</DIV></TD>
+				<TD><DIV CLASS="noNewLine" ID="calc_result_distance2rate_Spr_Al">Result</DIV></TD>
 			</TR>
 			<TR>
 				<TD>Summer</TD>
-				<TD><DIV CLASS="noNewLine" ID="calc_result_distance2rate_lowMixing_summer">Result</DIV> ou/s</TD>
-				<TD><DIV CLASS="noNewLine" ID="calc_result_distance2rate_highMixing_summer">Result</DIV> ou/s</TD>
-				<TD><DIV CLASS="noNewLine" ID="calc_result_distance2rate_extMixing_summer">Result</DIV> ou/s</TD>
+				<TD><DIV CLASS="noNewLine" ID="calc_result_distance2rate_Sum_Lo">Result</DIV></TD>
+				<TD><DIV CLASS="noNewLine" ID="calc_result_distance2rate_Sum_Hi">Result</DIV></TD>
+				<TD><DIV CLASS="noNewLine" ID="calc_result_distance2rate_Sum_Al">Result</DIV></TD>
 			</TR>
 
 			<TR>
 				<TD>Autum</TD>
-				<TD><DIV CLASS="noNewLine" ID="calc_result_distance2rate_lowMixing_autum">Result</DIV> ou/s</TD>
-				<TD><DIV CLASS="noNewLine" ID="calc_result_distance2rate_highMixing_autum">Result</DIV> ou/s</TD>
-				<TD><DIV CLASS="noNewLine" ID="calc_result_distance2rate_extMixing_autum">Result</DIV> ou/s</TD>
+				<TD><DIV CLASS="noNewLine" ID="calc_result_distance2rate_Aut_Lo">Result</DIV></TD>
+				<TD><DIV CLASS="noNewLine" ID="calc_result_distance2rate_Aut_Hi">Result</DIV></TD>
+				<TD><DIV CLASS="noNewLine" ID="calc_result_distance2rate_Aut_Al">Result</DIV></TD>
 			</TR>
 
 			<TR>
 				<TD>Winter</TD>
-				<TD><DIV CLASS="noNewLine" ID="calc_result_distance2rate_lowMixing_winter">Result</DIV> ou/s</TD>
-				<TD><DIV CLASS="noNewLine" ID="calc_result_distance2rate_highMixing_winter">Result</DIV> ou/s</TD>
-				<TD><DIV CLASS="noNewLine" ID="calc_result_distance2rate_extMixing_winter">Result</DIV> ou/s</TD>
+				<TD><DIV CLASS="noNewLine" ID="calc_result_distance2rate_Win_Lo">Result</DIV></TD>
+				<TD><DIV CLASS="noNewLine" ID="calc_result_distance2rate_Win_Hi">Result</DIV></TD>
+				<TD><DIV CLASS="noNewLine" ID="calc_result_distance2rate_Win_Al">Result</DIV></TD>
 			</TR>
 
 			<TR>
 				<TD>All Seasons</TD>
-				<TD><DIV CLASS="noNewLine" ID="calc_result_distance2rate_lowMixing_allSeasons">Result</DIV> ou/s</TD>
-				<TD><DIV CLASS="noNewLine" ID="calc_result_distance2rate_highMixing_allSeasons">Result</DIV> ou/s</TD>
-				<TD><DIV CLASS="noNewLine" ID="calc_result_distance2rate_extMixing_allSeasons">Result</DIV> ou/s</TD>
+				<TD><DIV CLASS="noNewLine" ID="calc_result_distance2rate_All_Lo">Result</DIV></TD>
+				<TD><DIV CLASS="noNewLine" ID="calc_result_distance2rate_All_Hi">Result</DIV></TD>
+				<TD><DIV CLASS="noNewLine" ID="calc_result_distance2rate_All_Al">Result</DIV></TD>
 			</TR>
 		</TABLE>
+		</DIV>
 		<BR><BR>
 		<TABLE>
 			<TR>
@@ -534,7 +536,21 @@ flyTo() works.
 		</TABLE>
 		<BR><BR>
 		</center>
-	</div>   <!-- end div for RATE calculator -->
+    </div>   <!-- end div for RATE calculator -->
+
+	<div id="warningBox" class="warningCss">
+		<TABLE>
+			<TR>
+				<TD>
+		Warning: Odor data presented is very preliminary, it is used for demo purpose.  Additional data collection, modeling and research needed to provide more accurate data.  Current model asume organic waste processing capacity of 90,000 tons/year.  Additional backgound info about what the data represent can be found in <A HREF="https://github.com/lbnl-scienceit/smelly">Smelly Github</A>.
+				</TD>
+				<TD>
+	    			<BUTTON id="DismissWarningButton">Dismiss</BUTTON>
+				</TD>
+			</TR>
+		</TABLE>
+	</div>   <!-- end div for warningbox -->
+
 
     <!-- legends  from https://www.mapbox.com/mapbox-gl-js/example/updating-choropleth/ -->
     <!--<div id='legend' class='legend' style='display: none;'> -->
@@ -616,6 +632,9 @@ $( function() {
 
 <script>
 
+
+//"use strict"     // all variables must be declared.  trying to use less global...   // was not used before in smelly_calc  
+
 ////////////////////////////////////////////////////////////////////////////////
 //////////////////////// calculator code below /////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -628,7 +647,7 @@ var calculatorMode = "distance";  // "rate" is the other calculator
 
 // state wide map only have capacity=1.0 thus need to disable this html drop down choice.  
 // no way to do this in html, thus doing it here in jQuery 
-document.getElementById("scaleSelectorUI").style.display = 'none'; 
+//~~document.getElementById("scaleSelectorUI").style.display = 'none'; 
 //document.getElementById("rateCalc").style.display = 'none';   // dont display calculator button till code is complete
 //--xx document.getElementById("ShowRateCalculatorButton").style.display = 'none';   // dont display calculator button till code is complete
 
@@ -637,6 +656,18 @@ $("#ShowCalculator").click( function() {
 	if ( odorCalculatorVisible == false ) {
 	    odorCalculatorVisible = true;
 	    $("button#ShowCalculator").html("Hide Calculator");
+	    
+	    
+	    // new addition 2019.0414
+        // async fetch constant from URL and get it ready for use 
+        //~~const calcParamTbl = fetchCsvFile(rateConstantUrl)
+        //~~    .then((csvDat) => parseCsvFile(csvDat))  
+        //~~    .then((parseCsvFileResult) => buildCalcParamTable(parseCsvFileResult)) ;
+        //~~calcParamTbl.then( (dataTbl) => calculateSeparationDistance( dataTbl );  // crunch number and update UI
+	    // fn below trigger showing calculator.  
+	    // so hopefully above loads the param in time
+	    // actually changed it to be in .then() to wait
+	    // ++ FIXME   think keeping below, erase above.
 		calculateSeparationDistance();
 		$("#distanceCalc.calc_Css").show("slow");
 	} else {
@@ -685,45 +716,317 @@ function getCurrentSite() {
 	return currentSite;
 };
 
-function calculateSeparationDistance() {
-	console.log("#CalculateButton4distCalc was triggered" );
+async function calculateSeparationDistance() {
+	console.log("--dbg-- #CalculateButton4distCalc was triggered" );
+	
+	var inputNum = document.getElementById('distanceCalculatorInput').value;
+	
 	// ++ TODO add table of constant inside this fn.  no need for them to be global
-	// could generate double hash, but not sure how to do that in javascript, so parallelel hash like lat/lon for site;s coordinate
+
+	
+    // async fetch constant from URL and get it ready for use 
+    let calcParamTbl = await fetchCsvFile(rateConstantUrl)
+    .then((csvDat) => parseCsvFile(csvDat))    // or is the probem here now??!! 
+    .then((parseCsvFileResult) => buildCalcParamTable(parseCsvFileResult))     // this spin forever or somehow have probelm with the return ... FIXME  ++
+      
+      
+      // this chain seems funny, dont seems to get executed
+      // promise .then() never gets to run somehow
+    .then((tabl) => async function(tabl){ 
+        await tabl;
+        console.log( " ** @@@@@@@@@@@@@@@@ debugging point -- inputNum, tabl ", inputNum, tabl );
+    }) 
+    .then((Xtbl) => async function(Xtbl){
+        console.log( " ** need update calculator output.  user inputNum is:" + inputNum );
+        //console.log( "need update calculator output.  constant tbl is:" + tbl );
+        
+        let konst = Xtbl;   // alias to input param
+        console.log( konst[0] );
+        console.log( konst[0]['site_name'] );
+        console.log( (konst[0]['season']).split(" ")[0].toLowerCase() );        // get spring instead of Spring (MAM)
+        console.log( konst[0]['hour'] );
+        console.log( konst[0]['a'] );
+        console.log( konst[0]['b'] );
+        console.log( konst.length );
+        
+        //+ $('#siteLocation4distCalc').text( "FIXME" + getCurrentSite() );
+        //+ $('calc_result_lowMixing_spring').html( "TBA lowMixing_spring TBA" );
+        // ++ FIXME
+    })
+    //calcParamTbl.then( (dataTbl) function(tbl){
+    .then( (dataTbl) => async function(dataTbl){
+        await dataTbl;
+        console.log( " ** @@@@@@@@@@@ please work" );   // nope, not sure why, stupid Promise wont get here, seems stuck at earlier code
+    });
+    
+    console.log( "--dbg-- beyond Promise async code block -- " );
+    console.log( "--dbg-- beyond Promise async code block -- (global tbl) is:", gtbl );
+    
+    // ^^^ most of above using Promise to load constant table will likely be abandoned.  not workable.
+    
+	//++let site = getCurrentSite(); 
+	let site = 'SfZwedc';   // TMP FIXME
+	//$('#siteLocation4distCalc').text( site );
+	$('#siteLocation4distCalc').text( "ZWEDC" );
+	console.log("--dbg-- distance calc inputNum was:" + inputNum );
+
 	// log10(y) =a*  log10(x) + b,  Coefficients are in the 26sites.emis.dist_fit_new.csv file.
 	// https://photos.google.com/album/AF1QipOt3uaEZ2J8fE-SLf6M1r-Q9z827abnWp-QhyZc
-	var calc_const_a = {};
-	calc_const_a['NcArcata'] = 0.53596043;
-	// var calc_const['NcArcata']{'All'}{'Al'}{'10x'}{'a'} = 0.53596043 ;  ##  do i need season, hours, scale, top as param defining the constant FIXME
-
-	var inputNum = document.getElementById('distanceCalculatorInput').value;
-	var lowMixing_spring  = inputNum * 10;
-	var highMixing_spring = inputNum * 20;
-	var lowMixing_summer  = inputNum * 30;
-	var highMixing_summer = inputNum * 40;
-	console.log("inputNum was:" + inputNum );
-
-	//document.getElementById('siteLocation').innerHTML = getCurrentSite();
-	$('#siteLocation4distCalc').text( getCurrentSite() );
-	// ++ TODO add table of constant inside this fn.  no need for them to be global
-	document.getElementById('calc_result_lowMixing_spring').innerHTML = lowMixing_spring;
-	document.getElementById('calc_result_highMixing_spring').innerHTML = highMixing_spring;
-	document.getElementById('calc_result_lowMixing_summer').innerHTML = lowMixing_summer;
-	document.getElementById('calc_result_highMixing_summer').innerHTML = highMixing_summer;
-};
+    // formula for distance:
+    // y = 10^b * x^a 
+    // y is in m
+    // x is ou/m^3/s
+    // in array construct below doesnt work :-/
+    for( let s = 0; s < seasonCodeList.length; s++ ) {
+        //for( let mixHr in mixingHourCodeList ) {
+        for( let m = 0; m < mixingHourCodeList.length; m++ ) {
+            let season = seasonCodeList[s];
+            let mixHr = mixingHourCodeList[m];
+            let htmlElementId = '#calc_result_' + season + "_" + mixHr ;
+            let x = inputNum;
+            console.log( "--dbg--distance calc season, mixHr, gtbl: ", season, mixHr, gtbl );
+            //console.log( "--dbg--distance calc gtbl: ", gtbl );
+            //console.log( "--dbg--distance calc gtbl length: ", gtbl.length );
+            let a = gtbl[site][season][mixHr]['a'];
+            let b = gtbl[site][season][mixHr]['b'];
+            //let y = 10^b * x^a;
+            let y = Math.pow(10,b) * Math.pow(x,a);
+            let y2 = Math.pow(10, (a*Math.log10(x)+b)  );
+            let yw = Math.pow(10, b) * Math.pow(x,a);
+            //console.log( "--dbg--distance calc vars: ", htmlElementId, site, x, a, b );
+            //console.log( "--dbg--y,y2,yw calculated to be:", y, y2, yw );
+            yw = Math.round( yw / 10 ) * 10;
+            $(htmlElementId).html( yw );     // use jQuery to update result table
+            //$(htmlElementId).html( y2.toPrecision(2) );     // use jQuery to update result table
+        }
+    } // end double nested for-loop
+	
+	console.log("#CalculateButton4distCalc code block ends" );
+};  // end fn calculateSeparationDistance 
 
 function calculateRate() {
 	console.log("#CalculateRate4rateCalc was triggered" );
-	var rateCalculatorInput = document.getElementById('rateCalculatorInput').value;
-	var rate4spring  = rateCalculatorInput / 100;
-	var rate4summer  = rateCalculatorInput / 200;
-	//... ++
-	var rate4allSeasons  = rateCalculatorInput / 500;
+	let rateCalculatorInput = document.getElementById('rateCalculatorInput').value;
+	// formula for max emission rate x is:
+	// x = 10^-b * y ^(1/a)
 
-	//document.getElementById('siteLocation').innerHTML = getCurrentSite();
-	$('#siteLocation4rateCalc').text( getCurrentSite() );
-	document.getElementById('calc_result_distance2rate_lowMixing_spring').innerHTML = rate4spring;
-	document.getElementById('calc_result_distance2rate_highMixing_allSeasons').innerHTML = rate4allSeasons;
-};
+    //++let site = getCurrentSite();
+    let site = 'SfZwedc'; // TMP FIXME
+    //$('#siteLocation4rateCalc').text( site );
+    $('#siteLocation4rateCalc').text( "ZWEDC" );
+    for( let s = 0; s < seasonCodeList.length; s++ ) {
+        //for( let mixHr in mixingHourCodeList ) {
+        for( let m = 0; m < mixingHourCodeList.length; m++ ) {
+            let season = seasonCodeList[s];
+            let mixHr = mixingHourCodeList[m];
+            let htmlElementId = '#calc_result_distance2rate_' + season + "_" + mixHr ;
+            let y = rateCalculatorInput;
+            //console.log( "--dbg--rate calc gtbl: ", gtbl );
+            let a = gtbl[site][season][mixHr]['a'];
+            let b = gtbl[site][season][mixHr]['b'];
+            let x = Math.pow(10,(-1*b)) * Math.pow(y,(1/a));
+            let x2 = Math.pow( 10,(  (Math.log10(y)-b) /a) ) ;
+            let xw = Math.pow( 10, (-b/a) ) * Math.pow(y, (1/a)) ;
+            //console.log( "--dbg--distance calc vars: ", htmlElementId, site, y, a, b );
+            //console.log( "--dbg--x,x2,xw calculated to be:", x,x2,xw );
+            x2 = Math.round( x2 / 1000 ) * 1000 ;     // trying to make output less messy.  .toPrecision and .toExponential seems too messy.
+            //xw = Math.round( xw / 1000 ) * 1000 ;     // trying to make output less messy.  .toPrecision and .toExponential seems too messy.
+            //$(htmlElementId).html( xw );     // use jQuery to update result table
+            $(htmlElementId).html( xw.toPrecision(2) );     // use jQuery to update result table
+        }
+    } // end double nested for-loop
+}; // end calculateRate fn
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+//// Calculator Aid functions.  
+//// Fetch constant table from CSV file via URL 
+//// using Promise, async, need to be parallel/thread safe
+//// adopted from poc code csv_via_evanplaice.html
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+// google post Promixifying XMLHttpRequest
+// https://developers.google.com/web/fundamentals/primers/promises
+async function fetchCsvFile(url) {
+//function get(url) {
+  console.log("fetchCsvFile begin");
+  // Return a new promise.
+  return new Promise(function(resolve, reject) {
+    // Do the usual XHR stuff
+    var req = new XMLHttpRequest();
+    req.open('GET', url);
+
+    req.onload = function() {
+      // This is called even on 404 etc
+      // so check the status
+      if (req.status == 200) {
+        // Resolve the promise with the response text
+        console.log("fetchCsvFile about to call resolve, should retrun a promise... ");
+        resolve(req.response);
+      }
+      else {
+        // Otherwise reject with the status text
+        // which will hopefully be a meaningful error
+        reject(Error(req.statusText));
+      }
+    };
+
+    // Handle network errors
+    req.onerror = function() {
+      reject(Error("Network Error"));
+    };
+
+    // Make the request
+    req.send();
+  });
+  console.log("fetchCsvFile last line of code.  should return a promise ");
+} // end function fetchCsvFile(url) 
+
+
+
+async function parseCsvFile( csvDat ) {
+    console.log( "inside parseCsvFile, input arg is:", csvDat );
+    return $.csv.toObjects(csvDat);
+} // end parseCsvFile
+
+//--var tbl = {};               // 5D hash that will be returned to caller  // made global cuz Promise remain  a mistery
+// generate table on constant for use by the calculator
+// input is csv file, converted by a parser into array of objects
+// should have pre-processed the csv file to clean things out
+// eg season name to use autumn instead of fall
+// mixing hours to be 'hi', 'lo', 'al'
+// but then this script already parsed into field names, so less coding to do it here, and i am in a rush
+// for this version, expect csv to be like:
+// "","season","hour","plant.scale","top","a","b","R2","site_name"
+// "1","Spring (MAM)","All Hours","scale_1x","Top 2%",0.572781584311465,-0.11966523965903,0.967234007216081,"Arcata_WWTF"
+// "2","Spring (MAM)","High Mixing Hours","scale_1x","Top 2%",0.453561594602808,0.327341954139423,0.943265341142336,"Arcata_WWTF"
+//  something is spinning here in smelly_calc and never return thus block future .then() :-/   FIXME ++
+async function buildCalcParamTable(constantArray){
+    console.log( "inside buildCalcParamTable, input arg is:", constantArray );
+    let konst = constantArray;   // alias to input param
+    let tbl = {};               // 5D hash that will be returned to caller  // made global cuz Promise remain  a mistery
+    
+    console.log( konst[0] );
+    console.log( konst[0]['site_name'] );
+    console.log( (konst[0]['season']).split(" ")[0].toLowerCase() );        // get spring instead of Spring (MAM)
+    console.log( konst[0]['hour'] );
+    console.log( konst[0]['a'] );
+    console.log( konst[0]['b'] );
+    console.log( konst.length );
+    // 2D hash ref  https://stackoverflow.com/questions/4329092/multi-dimensional-associative-arrays-in-javascript
+    for( let row=0; row < konst.length; row++ ){
+        const site_name = konst[row]['site_name'];                              // use site2abbr  ++ FIXME
+        let season = (konst[row]['season']).split(" ")[0].toLowerCase() ;        // get spring instead of Spring (MAM)
+        if( season === "fall" ) { season = "autumn"; }                          // fix inconsistent season naming 
+        const mixingHour = (konst[row]['hour']).substring(0,2);
+        if( site_name in tbl === false ) {
+            tbl[site_name] = {};    // initialize sub-obj in hash level 1 element
+        } else {
+            //-- console.log( "buildCalcParamTable found dublicate site name in input file, skipping" );
+            // site previously seen, no need to initialize the sub-object
+        }
+        if( season in tbl[site_name] === false ) {
+            tbl[site_name][season] = {};    // initialize sub-obj in the hash level 2 element
+        }
+        if( mixingHour in tbl[site_name][season] === false ) {
+            tbl[site_name][season][mixingHour] = {};    // initialize sub-obj in the hash level 3 element
+        }
+        
+        // tbl['Arcata_WWTF']['Autum']['hi(hour)']['a'] = (some number)
+        tbl[site_name][season][mixingHour]['a'] = konst[row]['a'];  
+        tbl[site_name][season][mixingHour]['b'] = konst[row]['b'];
+        console.log( "inside buildCalcParamTable, row=" + row );
+        console.log( "inside buildCalcParamTable, constructed entry is:" + tbl[site_name][season][mixingHour]['b'] );
+    }
+    console.log( "inside buildCalcParamTable, generated Table is:", tbl );
+    return( tbl );    // FIXME does this need to be constructed as a Promise??
+}
+
+
+// After failed Promise (it is too weired, maybe just dont work in my existing jQuery structure...
+// manually coding the table in here
+var gtbl = {};  
+function buildCalcParamHash() {
+    dbgTracer += " buildCalcParamHash() \t";  
+    console.log( 'dbtTracer chain is:', dbgTracer );
+    console.log( '--dbg-- buildCalcParamHash begin, 4D hash, coded in this JS file, not loaded via URL');
+    console.log( '--dbg-- buildCalcParamHash being, gtbl currently is: ', gtbl );
+    gtbl['SfZwedc'] = {};
+    gtbl['SfZwedc']['Spr'] = {};
+    gtbl['SfZwedc']['Sum'] = {};
+    gtbl['SfZwedc']['Aut'] = {};
+    gtbl['SfZwedc']['Win'] = {};
+    gtbl['SfZwedc']['All'] = {};
+    //gtbl['sfZwedc']['spring']['Hi']['a'] = a: 0.545068423937434;
+    gtbl['SfZwedc']['Spr']['Hi'] = {a: 0.442872194633513, b: 0.395557414661807};
+    gtbl['SfZwedc']['Spr']['Lo'] = {a: 0.591166584709239, b: 0.387765746773035};
+    gtbl['SfZwedc']['Spr']['Al'] = {a: 0.564028039911314, b: 0.200181981736158};
+    
+    gtbl['SfZwedc']['Sum']['Hi'] = {a: 0.459250483876518, b: 0.264823019523493};
+    gtbl['SfZwedc']['Sum']['Lo'] = {a: 0.622437722881143, b: 0.0273895772803282};
+    gtbl['SfZwedc']['Sum']['Al'] = {a: 0.589815388976665, b: 0.00500273447269173};
+   
+    gtbl['SfZwedc']['Aut']['Hi'] = {a: 0.591443573975132, b: -0.277624068037645};
+    gtbl['SfZwedc']['Aut']['Lo'] = {a: 0.702658424586768, b: 0.130741364704308};
+    gtbl['SfZwedc']['Aut']['Al'] = {a: 0.541673645647293, b: 0.540783670051477};
+    
+    gtbl['SfZwedc']['Win']['Hi'] = {a: 0.642919710070241, b: -0.393776765661342};
+    gtbl['SfZwedc']['Win']['Lo'] = {a: 0.680703504325007, b: 0.280842935575785};
+    gtbl['SfZwedc']['Win']['Al'] = {a: 0.530164246999804, b: 0.668631617739197};
+    
+    gtbl['SfZwedc']['All']['Hi'] = {a: 0.545068423937434, b: -0.0860491302079822};
+    gtbl['SfZwedc']['All']['Lo'] = {a: 0.58710960852359,  b:  0.490552468935941};
+    gtbl['SfZwedc']['All']['Al'] = {a: 0.552349075735268, b:  0.327879617804563};
+    
+    console.log( '--dbg-- buildCalcParamHash, entry for SfZwedc:' + gtbl['SfZwedc']['Spr']['Hi']['a'] );
+    console.log( '--dbg-- buildCalcParamHash, entry for SfZwedc:' + gtbl['SfZwedc']['Sum']['Hi']['b'] );
+    console.log( '--dbg-- buildCalcParamHash, populated gtbl as:', gtbl );
+} // end function buildCalcParamHash()
+buildCalcParamHash();  // invoking it (presumably) on load
+
+
+// this next one likely not needed anymore   
+// well, was hoping to abandone it, but may still need it :-/
+function runCalculator( constantTbl ) {
+    console.log( "inside runCalculator." );
+    console.log( "inside runCalculator, input arg is:", constantTbl );
+    //$('#csvTester2').html( constantTbl );
+}
+
+
+const rateConstantUrl = "https://smelly.lbl.gov/data/rate_distance_table.head5.csv";   // open in google sheets !!
+
+
+// old smelly_calc didnt have this document-ready defined...     
+$(document).ready(() => {
+    
+    console.log( '~~doc.ready() -- using Promise apprach now...' );
+    
+    // async fetch constant from URL and get it ready for use 
+    //const calcParamTbl = fetchCsvFile(rateConstantUrl).then((csvDat) => parseCsvFile(csvDat)).then((parseCsvFileResult) => buildCalcParamTable(parseCsvFileResult)) ;
+    //@const calcParamTbl = fetchCsvFile(rateConstantUrl).then((csvDat) => parseCsvFile(csvDat));
+    // .then((parseCsvFileResult) => buildCalcParamTable(parseCsvFileResult)) ;    // this is what breaks the Promise :-/
+    //calcParamTbl.then((parseCsvFileResult) => buildCalcParamTable(parseCsvFileResult)) ;    // this is what breaks the Promise :-/   it maybe spinning...
+        
+    //@console.log( "~~doc.ready() -- about to call runCalculator." );
+    // not chaining the next line below so that above can run in background 
+    //@calcParamTbl.then( (dataTbl) => runCalculator(dataTbl) ); // use dataTbl and update UI
+    //calcParamTbl.then( (dataTbl) => function(dataTbl) {
+    //    console.log( '~~doc.ready() -- inside a .then().  dataTbl is:' + dataTbl );     // dont get run in here either :-/
+    //}); 
+    
+    
+    console.log( '~~doc.ready() -- invoking dataTAbles to jazz up the calculator result table' );
+    
+    // dont like the resulting format, need to tweak, at least the bg color to match...
+    //$('#calcTableResult4distance').DataTable();
+    //$('#calcTableResult4rate').DataTable();
+
+    console.log( '~~doc.ready() -- done end of doc.ready()' );
+});
+
+
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -751,6 +1054,8 @@ var lat = {};
 //var counterFlyTo = 0;	// count number of flyTo() executed.  mostly for first load not to move since URL may have specific zoom/lat/lon.  hmm... but layer info wouldnt be loaded.  really need url to have that info.  rather have it fly than user think buggy software with no layer!!
 // hmmm... can map find out nearnest site on display and load that layer??  prob lot of work!
 
+const seasonCodeList     = [ "Spr", "Sum", "Aut", "Win", "All"];
+const mixingHourCodeList = [ "Hi", "Lo", "Al"];  // Al = All aka Extended Mixing hours.
 
 // note there is a map.remove() ... 
 var map = new mapboxgl.Map({
@@ -868,6 +1173,7 @@ function styleZwedcOpacity_old10Gradient(attribute) {
 // depending on combination, unload and load new layer data, then update map.  no need to do new map
 function getInputFormSelection() {
         getInputSelectorCounter++;
+        let inputFormSelection; 
         inputFormSelection  = document.getElementById("siteSelectorUI").value;
         inputFormSelection += document.getElementById("seasonSelectorUI").value;;
         inputFormSelection += document.getElementById("hourSelectorUI").value;;
