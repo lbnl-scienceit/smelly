@@ -19,7 +19,7 @@ async() will do the smart thing and generate return as promise when needed
 -->
 <head>
     <meta charset='utf-8' />
-    <title>Smelly - ETA + Science IT Collaboration (0418)</title>
+    <title>Smelly - ETA + Science IT Collaboration (0418b)</title>
     <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.52.0/mapbox-gl.js'></script>
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.52.0/mapbox-gl.css' rel='stylesheet' />
@@ -161,7 +161,65 @@ async() will do the smart thing and generate return as promise when needed
 	  font: 14pt/14pt 'Arial', Arial, Helvetica, sans-serif;  /* 12pt here, not px  */
 	}
 
+    /*  calculator table formatting from https://divtable.com/table-styler/ */
+        table.blueTable {
+        border: 1px solid #0B6FA4;/*#1C6EA4;*/
+        background-color: #EEEEEE;
+        width: 100%;
+        text-align: left;
+        border-collapse: collapse;
+        }
+        table.blueTable td, table.blueTable th {
+        border: 1px solid #AAAAAA;
+        padding: 6px 6px;
+        }
+        table.blueTable tbody td {
+        font-size: 13px;
+        }
+        table.blueTable tr:nth-child(even) {
+        background: #D0E4F5;
+        }
+        table.blueTable thead {
+        background: #1C6EA4;
+        background: -moz-linear-gradient(top, #5592bb 0%, #327cad 66%, #1C6EA4 100%);
+        background: -webkit-linear-gradient(top, #5592bb 0%, #327cad 66%, #1C6EA4 100%);
+        background: linear-gradient(to bottom, #5592bb 0%, #327cad 66%, #1C6EA4 100%);
+        border-bottom: 2px solid #444444;
+        }
+        table.blueTable thead th {
+        font-size: 15px;
+        font-weight: bold;
+        color: #FFFFFF;
+        border-left: 2px solid #D0E4F5;
+        }
+        table.blueTable thead th:first-child {
+        border-left: none;
+        }
 
+        table.blueTable tfoot {
+        font-size: 14px;
+        font-weight: bold;
+        color: #FFFFFF;
+        background: #D0E4F5;
+        background: -moz-linear-gradient(top, #dcebf7 0%, #d4e6f6 66%, #D0E4F5 100%);
+        background: -webkit-linear-gradient(top, #dcebf7 0%, #d4e6f6 66%, #D0E4F5 100%);
+        background: linear-gradient(to bottom, #dcebf7 0%, #d4e6f6 66%, #D0E4F5 100%);
+        border-top: 2px solid #444444;
+        }
+        table.blueTable tfoot td {
+        font-size: 14px;
+        }
+        table.blueTable tfoot .links {
+        text-align: right;
+        }
+        table.blueTable tfoot .links a{
+        display: inline-block;
+        background: #1C6EA4;
+        color: #FFFFFF;
+        padding: 2px 8px;
+        border-radius: 5px;
+        }
+    /* end calculator table formatting */
 
 
 	.attrib2_input_Css {
@@ -403,18 +461,21 @@ async() will do the smart thing and generate return as promise when needed
 			<TR>
 		</TABLE>
 		<h3>
-            Max Separation Distance (meter)  <EM><DIV ID="siteLocation4distCalc">SiteLocation</DIV></EM><BR>
+            Max Separation Distance (meter)  <EM><DIV ID="siteLocation4distCalc">SiteLocation</DIV></EM>
 			<!-- maye better named as ou2distance calculator -->
 		</h3>
 		<BR>
 		<DIV ID="calcTableResult4distanceDiv">
-		<TABLE border="1" id="calcTableResult4distance" cellpadding="6">
+		<TABLE border="1" id="calcTableResult4distance" cellpadding="6" class="blueTable">
+			<THEAD>
 			<TR>
 				<TD></TD>
 				<TD>Low Mixing <BR> 7-8am; 6-9pm</TD>
 				<TD>High Mixing<BR> 9am-5pm</TD>
 				<TD>All Hours<BR> 7am-9pm</TD>
 			</TR>
+            </THEAD>
+            <TBODY>
 			<TR>
 				<TD>Spring</TD>
 				<TD><DIV CLASS="noNewLine" ID="calc_result_Spr_Lo">Result</DIV></TD>
@@ -445,6 +506,7 @@ async() will do the smart thing and generate return as promise when needed
 				<TD><DIV CLASS="noNewLine" ID="calc_result_All_Hi">Result</DIV></TD>
 				<TD><DIV CLASS="noNewLine" ID="calc_result_All_Al">Result</DIV></TD>
 			</TR>
+            </TBODY>
 		</TABLE>
 		</DIV>
 		<BR><BR>
@@ -484,13 +546,16 @@ async() will do the smart thing and generate return as promise when needed
 		</h3>
 		<BR>
 		<DIV ID="calcTableResult4rateDiv">
-		<TABLE border="1" id="calcTableResult4rate" cellpadding="6">
+		<TABLE border="1" id="calcTableResult4rate" cellpadding="6" class="blueTable">
+			<THEAD>
 			<TR>
 				<TD></TD>
 				<TD>Low Mixing <BR> 7-8am; 6-9pm</TD>
 				<TD>High Mixing<BR> 9am-5pm</TD>
 				<TD>All Hours<BR> 7am-9pm</TD>
 			</TR>
+            </THEAD>
+			<TBODY>
 			<TR>
 				<TD>Spring</TD>
 				<TD><DIV CLASS="noNewLine" ID="calc_result_distance2rate_Spr_Lo">Result</DIV></TD>
@@ -524,6 +589,7 @@ async() will do the smart thing and generate return as promise when needed
 				<TD><DIV CLASS="noNewLine" ID="calc_result_distance2rate_All_Hi">Result</DIV></TD>
 				<TD><DIV CLASS="noNewLine" ID="calc_result_distance2rate_All_Al">Result</DIV></TD>
 			</TR>
+            </TBODY>
 		</TABLE>
 		</DIV>
 		<BR><BR>
@@ -783,7 +849,7 @@ async function calculateSeparationDistance() {
             let mixHr = mixingHourCodeList[m];
             let htmlElementId = '#calc_result_' + season + "_" + mixHr ;
             let x = inputNum;
-            console.log( "--dbg--distance calc season, mixHr, gtbl: ", season, mixHr, gtbl );
+            //console.log( "--dbg--distance calc season, mixHr, gtbl: ", season, mixHr, gtbl );
             //console.log( "--dbg--distance calc gtbl: ", gtbl );
             //console.log( "--dbg--distance calc gtbl length: ", gtbl.length );
             let a = gtbl[site][season][mixHr]['a'];
