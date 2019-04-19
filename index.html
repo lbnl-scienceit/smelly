@@ -51,9 +51,9 @@ async() will do the smart thing and generate return as promise when needed
 	<!-- see jQuery versions at https://code.jquery.com/jquery/ -->
     <!-- <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script> -->
 	<script src="http://code.jquery.com/jquery-3.3.1.slim.js" integrity="sha256-fNXJFIlca05BIO2Y5zh1xrShK3ME+/lYZ0j+ChxX2DA=" crossorigin="anonymous"></script>
+	<script src="https://smelly.lbl.gov/src/jquery.csv.js" crossorigin="anonymous"></script>
 
 	<!-- DataTables.net, never used , thus disabling
-	<script src="https://smelly.lbl.gov/src/jquery.csv.js" crossorigin="anonymous"></script>
 	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
 	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 	--> 
@@ -764,6 +764,7 @@ async function calculateSeparationDistance() {
     
     // ^^^ most of above using Promise to load constant table will likely be abandoned.  not workable.
     
+	// calculator 1: ou to distance 
 	//++let site = getCurrentSite(); 
 	let site = 'SfZwedc';   // TMP FIXME
 	//$('#siteLocation4distCalc').text( site );
@@ -771,11 +772,9 @@ async function calculateSeparationDistance() {
 	console.log("--dbg-- distance calc inputNum was:" + inputNum );
 
 	// log10(y) =a*  log10(x) + b,  Coefficients are in the 26sites.emis.dist_fit_new.csv file.
-	// https://photos.google.com/album/AF1QipOt3uaEZ2J8fE-SLf6M1r-Q9z827abnWp-QhyZc
-    // formula for distance:
-    // y = 10^b * x^a 
     // y is in m
     // x is ou/m^3/s
+	// https://photos.google.com/album/AF1QipOt3uaEZ2J8fE-SLf6M1r-Q9z827abnWp-QhyZc
     // in array construct below doesnt work :-/
     for( let s = 0; s < seasonCodeList.length; s++ ) {
         //for( let mixHr in mixingHourCodeList ) {
@@ -807,9 +806,8 @@ async function calculateSeparationDistance() {
 function calculateRate() {
 	console.log("#CalculateRate4rateCalc was triggered" );
 	let rateCalculatorInput = document.getElementById('rateCalculatorInput').value;
-	// formula for max emission rate x is:
-	// x = 10^-b * y ^(1/a)
 
+	// calculator 2: distance to ou rate
     //++let site = getCurrentSite();
     let site = 'SfZwedc'; // TMP FIXME
     //$('#siteLocation4rateCalc').text( site );
