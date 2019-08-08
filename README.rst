@@ -38,6 +38,7 @@ at
 © 2019 Tin Ho, Wei Zhou, Ling Jin, Tyler Huntington, Corinne Scown.
 
 Application accessible at:
-  * https://smelly.lbl.gov 
+  * https://smelly.lbl.gov/zwedc.html - For Alviso ZWEDC site only.
+  * https://smelly.lbl.gov - *PROTOTYPE* data for ~20 sites across california. 
 
 
