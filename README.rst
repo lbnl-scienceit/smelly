@@ -12,17 +12,18 @@ Smelly
         :align: center
         :alt: smelly web app screenshot
 
-
-Smelly is an interactive map displaying odor dispersion from various refuse processing sites across California.  Please note that data and model is preliminary at this point.  Additional data collection, modeling and research is needed.
+Semly is an interactive webtool displaying odor dispersion from various potential waste-to-energy sites across California.  It currently display data for dry anaerobic digestion technology with organic waste intake of 90,000 tons per year.  Please note that data and model is preliminary at this point.  Additional data collection, modeling and research is needed.
 
 FAQ
 ===
 
-* Odor is very subjective.  This app tries to reports on chemical species that most people find unpleasant.  Concentration of 5.0 ou/m^3 is usually the threashold of human detection.
-* Map represent "Top 2%" emission.  This is the emission rate at the highest concentration for 2% of the time.  eg, For a 24 hours period, about 1/2 hour will have odorous chemical at the modeled level.
-* Model assume a plant capacity of 90,000 ton/year for organic waste.
-* Compost is the largest contributor of offensive odor.  Different composting mechanism are employed.  This model assume plant uses *windrow compost*.
+* Odor is very subjective. Unpleasant odors in 5 to 10 ou/m^3 range usually trigger complains.
+* Model assume a dry Anaerobic Digestion facility similar to ZWEDC with full capacity of 90,000 ton/year for organic waste.
+* Map represents the top 2 percentile in the distribution of the simulated odor concentrations over a three year period. 
+* Odor dispersion patterns from individual and combined odor emitting sources at the facility are displayed. 
+* The facility assumes bagged outdoor composting as practiced at ZBest.
 * For further details, please see our paper published at [TBA].
+
 
 About
 =====
