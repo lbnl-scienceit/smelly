@@ -12,7 +12,7 @@ Smelly
         :align: center
         :alt: smelly web app screenshot
 
-Semly is an interactive webtool displaying odor dispersion from various potential waste-to-energy sites across California.  It currently display data for dry anaerobic digestion technology with organic waste intake of 90,000 tons per year.  Please note that data and model is preliminary at this point.  Additional data collection, modeling and research is needed.
+Smelly is an interactive webtool displaying odor dispersion from various potential waste-to-energy sites across California.  It currently display data for dry anaerobic digestion technology with organic waste intake of 90,000 tons per year.  Please note that data and model is preliminary at this point.  Additional data collection, modeling and research is needed.
 
 FAQ
 ===
