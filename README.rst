@@ -38,7 +38,7 @@ at
 By: 
 Tin Ho, Wei Zhou, Ling Jin, Tyler Huntington, Corinne Scown.
 
-© 2020 The Regents of the University of California, through Lawrence Berkeley National Laboratory (“Berkeley Lab”) subject to receipt of any required approvals from the U.S. Dept. of Energy.  All rights reserved.  See `LICENSE`_ for details.
+© 2020 The Regents of the University of California, through Lawrence Berkeley National Laboratory (“Berkeley Lab”) subject to receipt of any required approvals from the U.S. Dept. of Energy.  All rights reserved.  See `LICENSE <LICENSE>`_ for details.
 
 `Mapbox <https://mapbox.com>`_ and its affiliates assert copyright on their maps and API.  
 
