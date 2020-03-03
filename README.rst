@@ -35,8 +35,10 @@ and
 `Scientific Computing <http://lrc.lbl.gov>`_
 at 
 `Lawrence Berkeley National Lab <http://www.lbl.gov>`_.
+By: 
+Tin Ho, Wei Zhou, Ling Jin, Tyler Huntington, Corinne Scown.
 
-© 2019 Tin Ho, Wei Zhou, Ling Jin, Tyler Huntington, Corinne Scown.
+© 2020 The Regents of the University of California, through Lawrence Berkeley National Laboratory (“Berkeley Lab”) subject to receipt of any required approvals from the U.S. Dept. of Energy.  All rights reserved.
 
 Application accessible at:
   * https://smelly.lbl.gov/zwedc.html - For Alviso ZWEDC site only.
