@@ -8,7 +8,7 @@
 Smelly
 ======
 
-.. figure:: figures/smelly_screenshot.jpg
+.. figure:: figures/smelly+license.png
         :align: center
         :alt: smelly web app screenshot
 
