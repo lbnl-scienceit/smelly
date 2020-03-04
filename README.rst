@@ -1,10 +1,4 @@
 
-|status1|
-
-.. |status1| image:: https://travis-ci.org/tin6150/smelly.svg?branch=master
-    :target: https://travis-ci.org/tin6150/smelly
-
-
 Smelly
 ======
 
