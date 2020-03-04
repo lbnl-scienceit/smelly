@@ -43,7 +43,7 @@ Tin Ho, Wei Zhou, Ling Jin, Tyler Huntington, Corinne Scown.
 `Mapbox <https://mapbox.com>`_ and its affiliates assert copyright on their maps and API.  
 
 Application accessible at:
-  * https://smelly.lbl.gov/zwedc.html - For Alviso ZWEDC site only.
-  * https://smelly.lbl.gov - *PROTOTYPE* data for ~20 sites across california. 
+  * https://smelly.lbl.gov - *PROTOTYPE* data for 25 sites across california. 
+  * https://smelly.lbl.gov/zwedc.html - Variant for San Jose/Alviso ZWEDC site only.
 
 
