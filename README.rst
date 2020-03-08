@@ -11,14 +11,18 @@ Smelly is an interactive webtool displaying odor dispersion from various potenti
 * Odor is very subjective. Unpleasant odors in 5 to 10 ou/m^3 range usually trigger complains.
 * Model assume a dry Anaerobic Digestion facility similar to ZWEDC with full capacity of 90,000 ton/year for organic waste.
 * Map represents the top 2 percentile in the distribution of the simulated odor concentrations over a three year period. 
-* Odor dispersion patterns from individual and combined odor emitting sources at the facility are displayed. 
+* Odor dispersion patterns from individual and combined odor emitting sources at the facility are displayed, geographic and meteorological condition for each potential site are modeleted, but no such plan exist nor are they actually planned. 
 * The facility assumes bagged outdoor composting as practiced at ZBest.
-* For further details, please see our paper published at [TBA].
+* Additional funding would be needed for data collection and further refine the models, they are very preliminary and used for demo purpose only.
 
-For additional background, please see 
+For further details, please see 
 `our poster <figures/odor_poster_v7.4.pdf>`_ 
 "Environmental and community impact assessment of operations at an organic waste-to-energy facility" presented at 
 `AGU 2019 Conference in SF <https://agu.confex.com/agu/fm19/meetingapp.cgi/Paper/559252>`_ 
+
+Application accessible at:
+  * https://smelly.lbl.gov - *PROTOTYPE* data for 25 sites across california. 
+  * https://smelly.lbl.gov/zwedc.html - Variant for San Jose/Alviso ZWEDC site only.
 
 Credit
 ======
@@ -37,8 +41,5 @@ Tin Ho, Wei Zhou, Ling Jin, Tyler Huntington, Corinne Scown.
 
 `Mapbox <https://mapbox.com>`_ and its affiliates assert copyright on their maps and API.  
 
-Application accessible at:
-  * https://smelly.lbl.gov - *PROTOTYPE* data for 25 sites across california. 
-  * https://smelly.lbl.gov/zwedc.html - Variant for San Jose/Alviso ZWEDC site only.
 
 

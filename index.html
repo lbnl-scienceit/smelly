@@ -126,11 +126,12 @@ tin 2019.05.12, 2019.1028
 	
 	.warningCss {
 	  position: absolute;
-	  top: 50px;   /*  top: 20 (no unit) was ok, but not great */
+	  top: 63px;   /*  prev: 50, 20 */
 	  left: 0;    /* */
 	  /*right: 3;     /* */
 	  /*background: rgba(250, 250, 250, 0.9);  /* 255 255 255 is pure white */
-      background-color: rgba(200, 0, 0, 0.9);  /* want it red */
+      /* red: background-color: rgba(0, 120, 200, 0.836);  /* want it red */
+      background-color: rgba(224,255,255, 0.836);  /* cyan */
 	  margin-left: 6px; 
 	  margin-right: 46px; 
 	  /*overflow: auto;*/
@@ -359,6 +360,13 @@ tin 2019.05.12, 2019.1028
 			<BUTTON id="ShowCalculator">Show Calculator</BUTTON>
 				<!-- -->
             <!--html element for drop down picker goes here-->
+            || 
+            <select id="techSelectorUI"> 
+                <option value="NA"           disabled>Technology</option>	       
+                <option value="dryAD"                >Dry AD</option>  
+                <option value="wetAD"        disabled>Wet AD</option>  
+                <option value="compostOnly"  disabled>Compost only</option>  
+            </select>
             <select id="siteSelectorUI"> <!-- site -->  <!--to emulate Tyler <select id="polygon-layer-selector"> -->
                 <option value="NA"         disabled           >Air Basin: Site</option>	       
                 <option value="SfZwedc"         >SF: ZWEDC</option>                         <!-- San Francisco Bay -->  <!-- took out "selected" as it is the first item in list that is enable it will be automatic -->
@@ -610,7 +618,9 @@ tin 2019.05.12, 2019.1028
 		<TABLE>
 			<TR>
 				<TD>
-		Warning: Odor data presented is very preliminary, it is used for demo purpose.  Additional data collection, modeling and research needed to provide more accurate data.  Current model asume organic waste processing capacity of 90,000 tons/year.
+        Data presented here is modeled from a dry Anaerobic Digester processing 90,000 tons/year of organic waste.  It is merely extrapolated to other sites for comparison purpose.  Geography and meteorological conditions of such possible sites are considered, but no such facility actually exist nor planned.  
+        See <A HREF="https://github.com/lbnl-scienceit/smelly/blob/master/README.rst">README</A>
+        for more information.
 				</TD>
 				<TD>
 	    			<BUTTON id="DismissWarningButton">Dismiss</BUTTON>
