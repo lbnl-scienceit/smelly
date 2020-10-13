@@ -239,6 +239,7 @@ tin 2020.10.13
 	  border-radius: 3px;
 	  font: 20px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;  /* 12px, not 12 pt!! they turn out to be very small */
 	  z-index: 2;		/* 1 appear behind copyright link; 5 would cover it. I have another (i) for the link :) */
+      visibility: hidden;
 	}
 
 	/* trying nested css for inputbar -- didnt work as hoped */
@@ -1057,7 +1058,7 @@ var map = new mapboxgl.Map({
     // https://docs.mapbox.com/mapbox-gl-js/api/#attributioncontrol, but see the top part on options.attributionControl 
     // these are all options for the map object 
     attributionControl: false,                  // setting to false remove the fine print at bottom.  I still have an info circle that pop up, should be good enough
-    hash: true,     // change URL with a hash of map zoom/lat/long    eg append: #15/37.434/-121.945   # notice it is lat/long in this url!!  so it is zoom/y/x
+    hash: false,     // change URL with a hash of map zoom/lat/long    eg append: #15/37.434/-121.945   # notice it is lat/long in this url!!  so it is zoom/y/x
 
     //zoom: 13,
     //center: [-122.447303, 37.753574]   SF
