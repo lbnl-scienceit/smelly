@@ -51,6 +51,7 @@ def gprint( str1, str2="#" ):
 # generate a single line of geojson  from a given input arg of 
 # need to be sure points are 4 vertices in seq, something like TL, TR, BR, BL.  will name them seq in case polygon becomes more than just square
 # gson need 5 poionts to close off a square, this fn will print first point last again for that purpose
+# the "value" of polygon is named "max".  can chnage it to say "conc" or whatever as desired.
 def print_gsonLine( value, lon1,lat1, lon2,lat2, lon3,lat3, lon4,lat4) :
 	gprint( '    { "type":       "Feature", ', '1' ) 	## 1
 	gprint( '      "properties":            ', '2' ) 	## 2
@@ -84,14 +85,14 @@ def chkPtFormat( pt, wholeLine ) :
 
 """
 example input lines (didn't start with 0-index, so parser will -1)
-1   2     3     4   5   6      7      8      9    10   11     12     13   14   15     16     17   18   19     20     21   22
-"","lon","lat","x","y","Conc","lon1","lat1","x1","y1","lon2","lat2","x2","y2","lon3","lat3","x3","y3","lon4","lat4","x4","y4"
+1   2     3     4   5   6     7      8      9    10   11     12     13   14   15     16     17   18   19     20     21   22
+"","lon","lat","x","y","max","lon1","lat1","x1","y1","lon2","lat2","x2","y2","lon3","lat3","x3","y3","lon4","lat4","x4","y4"
 "1",-121.985002139616,37.4079452829464,589827,4140612,0.18577,-121.985287624997,37.4077223978109,589802,4140587,-121.984722734052,37.4077175479308,589852,4140587,-121.984716652544,37.4081681673591,589852,4140637,-121.985281546871,37.4081730173178,589802,4140637
 "2",-121.984437247048,37.4079404316778,589877,4140612,0.18817,-121.984722734052,37.4077175479308,589852,4140587,-121.984157843243,37.4077126953524,589902,4140587,-121.984151758353,37.4081633147021,589902,4140637,-121.984716652544,37.4081681673591,589852,4140637
 
 """
 
-val_idx  = 6-1  # value of the feature at the lon, lat (in this case, wants to aveconc)
+val_idx  = 6-1  # value of the feature at the lon, lat (in this case, wants to max concentration)
 lon1_idx = 7-1  # column index containing longitude, -1 cuz 0-indexed
 lat1_idx = 8-1
 lon2_idx = 11-1 # 
@@ -176,20 +177,10 @@ def run_conversion( args ) :
 		print_gsonLine( val, lon1,lat1, lon2,lat2, lon3,lat3, lon4,lat4 )
 		lineNum += 1		
 	f.close()
-
 	print_closer() # close out parenthesis...
 # run_conversion()-end
 
 
-
-
-# glance over data, find avg, std dev, min, max, missing value, etc # use pandas
-# mostly to get idea to change opacity in mapbox studio using a custom range.
-#https://pandas.pydata.org/pandas-docs/stable/generated/pandas.read_csv.html#pandas.read_csv
-def sniff_data(args) :
-    print("did the data analysis interactively in jupyther hub")
-    #pandas.read_csv( INPUT )
-#end sniff_data()
 
 
 def main():
