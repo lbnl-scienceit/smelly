@@ -26,12 +26,9 @@ Application accessible at:
 References
 ----------
 
-* Jin, Ling, W. Zhou, T. Ho, N. J. Brown, C. Preble, M. D. Sohn, C. D. Scown, T. Kirchstetter. 2019. "Environmental and community impact assessment of operations at an organic waste-to-energy facility" 
-poster presented at the AGU 2019 Conference in San Francisco:
-https://ui.adsabs.harvard.edu/abs/2019AGUFM.A11I2674J/abstract
+* Jin, Ling, W. Zhou, T. Ho, N. J. Brown, C. Preble, M. D. Sohn, C. D. Scown, T. Kirchstetter. 2019. "Environmental and community impact assessment of operations at an organic waste-to-energy facility" `poster presented at the AGU 2019 Conference in San Francisco <https://ui.adsabs.harvard.edu/abs/2019AGUFM.A11I2674J/abstract>`_
 
-* Kirchstetter, Thomas W., C. D. Scown, A. Satchwell, L. Jin, S. J. Smith, C. Preble, J. Amirebrahimi, M. Sohn, N. Brown, J. Devkota, Y. He, T. Ho, R. Maddalena, S. Nordahl, N. Tang, and W. Zhou. 2020. Enabling Anaerobic Digestion Deployment to Convert Municipal Solid Waste to Energy. California Energy Commission. Publication Number: CEC report cec-500-2020-011. 
-https://ww2.energy.ca.gov/2020publications/CEC-500-2020-011/CEC-500-2020-011.pdf
+* Kirchstetter, Thomas W., C. D. Scown, A. Satchwell, L. Jin, S. J. Smith, C. Preble, J. Amirebrahimi, M. Sohn, N. Brown, J. Devkota, Y. He, T. Ho, R. Maddalena, S. Nordahl, N. Tang, and W. Zhou. 2020. Enabling Anaerobic Digestion Deployment to Convert Municipal Solid Waste to Energy. California Energy Commission. Publication Number: `CEC report cec-500-2020-011. <https://ww2.energy.ca.gov/2020publications/CEC-500-2020-011/CEC-500-2020-011.pdf>`_
 
 
 This web-based application is a 
